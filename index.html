@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBEC - Earl Brown Education Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            /* Brand palette: blue + orange */
+            --brand-blue: #0b3d91; /* deep brand blue */
+            --brand-dark: #07204a; /* very dark blue */
+            --brand-orange: #ff7a18; /* vivid orange */
+            --brand-orange-2: #ff9a3c; /* lighter orange */
+            --white: #ffffff;
+            --light-gray: #f6f7fb;
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-on-dark: rgba(255,255,255,0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--brand-dark);
+            background: linear-gradient(180deg, #f8fbff 0%, var(--light-gray) 100%);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            padding: 20px 0;
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            color: var(--brand-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--brand-orange);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--brand-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(1200px 600px at 10% 20%, rgba(11,61,145,0.12), transparent 10%),
+                        linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-orange) 100%);
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://sfile.chatglm.cn/images-ppt/b8dab74b5973.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--text-on-dark);
+            max-width: 900px;
+            padding: 40px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            overflow: hidden;
+        }
+
+        /* Decorative visual column inside hero */
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            flex: 0 0 auto;
+        }
+
+        .hero-icon {
+            width: 52px;
+            height: 52px;
+            display: block;
+            fill: url(#gradHero);
+            filter: drop-shadow(0 6px 18px rgba(7,32,74,0.18));
+        }
+
+        .vertical-line {
+            width: 2px;
+            height: 72px;
+            background: linear-gradient(180deg, var(--brand-orange), var(--brand-orange-2));
+            border-radius: 4px;
+            opacity: 0.95;
+        }
+
+        .play-btn {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            border: 2px solid rgba(255,255,255,0.08);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .play-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            background: rgba(255,255,255,0.09);
+        }
+
+        .play-icon {
+            width: 22px;
+            height: 22px;
+            fill: var(--brand-orange);
+            transform: translateX(2px);
+        }
+
+        /* pulsing ring */
+        .play-btn::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255,122,24,0.08);
+            z-index: -1;
+            animation: pulse 1.8s infinite ease-out;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,122,24,0.16); opacity: 1; }
+            70% { box-shadow: 0 0 0 20px rgba(255,122,24,0.02); opacity: 0.6; }
+            100% { box-shadow: 0 0 0 0 rgba(255,122,24,0); opacity: 0; }
+        }
+
+        /* hero-text to keep existing layout */
+        .hero-text { flex: 1 1 auto; }
+        
+        .hero-title .typing-text {
+            display: inline-block;
+            border-right: 3px solid var(--brand-orange);
+            padding-right: 5px;
+            animation: blink 0.75s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--brand-orange) }
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 1s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: var(--brand-orange);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.25s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 1.5s forwards;
+            box-shadow: 0 10px 30px rgba(255,122,24,0.12);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .hero-btn:hover {
+            background-color: var(--brand-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(7,32,74,0.18);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            color: var(--brand-dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--brand-orange);
+        }
+
+        /* Generic section layout and professional card styles */
+        .section {
+            padding: 90px 0;
+        }
+
+        .section .container {
+            max-width: 1100px;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .section-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(7,32,74,0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 46px rgba(7,32,74,0.12);
+        }
+
+        .section-card h3 {
+            margin: 0 0 6px 0;
+            color: var(--brand-dark);
+            font-size: 20px;
+        }
+
+        .section-card p {
+            margin: 0;
+            color: rgba(7,32,74,0.75);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: rgba(7,32,74,0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .services-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .services-item {
+            min-width: 33.333%;
+            padding: 26px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 12px;
+        }
+        
+        .services-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .services-icon {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 18px;
+            background-color: rgba(255, 122, 24, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            color: var(--brand-orange);
+            transition: all 0.28s ease;
+        }
+
+        .services-item:hover .services-icon {
+            background-color: var(--brand-orange);
+            color: var(--white);
+            transform: scale(1.06);
+        }
+        
+        .services-item-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--brand-dark);
+        }
+        
+        .services-item-desc {
+            font-size: 16px;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+        
+        .services-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .services-control {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .services-control:hover {
+            background-color: var(--brand-orange);
+            color: var(--white);
+        }
+        
+        /* Materials/Reports Section */
+        .materials {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .bento-item {
+            background-color: rgba(255,255,255,0.03);
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.28s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid rgba(255,255,255,0.04);
+            backdrop-filter: blur(6px);
+        }
+        
+        .bento-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .bento-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 122, 24, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .bento-item:hover::before {
+            opacity: 1;
+        }
+        
+        .bento-item-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .bento-item-wide {
+            grid-column: span 2;
+        }
+        
+        .bento-item-tall {
+            grid-row: span 2;
+        }
+        
+        .bento-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .bento-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            z-index: 2;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .bento-item:hover .bento-content {
+            bottom: 20px;
+        }
+        
+        .bento-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bento-desc {
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bento-item:hover .bento-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .accordion {
+            margin-top: 50px;
+        }
+        
+        .accordion-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .accordion-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .accordion-header:hover {
+            background-color: rgba(255, 122, 24, 0.05);
+        }
+        
+        .accordion-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--brand-dark);
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-item.active .accordion-body {
+            max-height: 500px;
+        }
+        
+        .accordion-content {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .blog-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .blog-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-date {
+            font-size: 14px;
+            color: var(--brand-orange);
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .blog-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--brand-dark);
+            line-height: 1.4;
+        }
+        
+        .blog-excerpt {
+            font-size: 16px;
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .blog-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--brand-orange);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-link:hover {
+            color: var(--brand-dark);
+        }
+        
+        .blog-link i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .blog-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, var(--brand-dark), rgba(7,32,74,0.9));
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            height: 42px;
+            width: auto;
+            display: block;
+        }
+        
+        .footer-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background-color: var(--brand-orange);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 16px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-bottom p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .services-item {
+                min-width: 50%;
+            }
+            
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            
+            .bento-item-large, .bento-item-wide, .bento-item-tall {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .services-item {
+                min-width: 100%;
+            }
+            
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 18px;
+            }
+
+            .hero-visual {
+                flex-direction: row;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .vertical-line { display: none; }
+
+            .hero-visual .hero-icon { width: 40px; height: 40px; }
+
+            .play-btn { width: 56px; height: 56px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo"><img src="/logo.png" alt="EBEC logo" class="logo-img"></a>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#materials">Materials</a></li>
+                    <li><a href="#reports">Reports</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="material-icons">menu</i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content glass">
+                <div class="hero-visual" aria-hidden="true">
+                    <!-- decorative SVG icon with gradient -->
+                    <svg class="hero-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="gradHero" x1="0%" x2="100%" y1="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ff9a3c" />
+                                <stop offset="100%" stop-color="#ff7a18" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="32" cy="32" r="28" fill="url(#gradHero)" opacity="0.95" />
+                        <path d="M32 18 L40 32 L32 28 L24 32 Z" fill="#fff" opacity="0.12" />
+                    </svg>
+                    <div class="vertical-line"></div>
+                    <button class="play-btn" id="heroPlay" aria-label="Play introduction video" title="Play video">
+                        <svg class="play-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-title"><span class="typing-text">Igniting a better tomorrow</span></h1>
+                    <p class="hero-subtitle">Empowering educational institutions, businesses, and communities through strategic consulting and innovative development programs.</p>
+                    <a href="#services" class="hero-btn">Discover Our Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Comprehensive solutions tailored to your unique needs and goals</p>
+            </div>
+            
+            <div class="services-slider">
+                <div class="services-container section-grid">
+                    <div class="services-item section-card">
+                        <div class="services-icon">
+                            <i class="material-icons">school</i>
+                        </div>
+                        <h3 class="services-item-title">School District Services</h3>
+                        <p class="services-item-desc">Parent University Workshops, Educator Training, Youth Development, and Strategic Consulting for school districts.</p>
+                    </div>
+                    
+                    <div class="services-item section-card">
+                        <div class="services-icon">
+                            <i class="material-icons">business</i>
+                        </div>
+                        <h3 class="services-item-title">Business Solutions</h3>
+                        <p class="services-item-desc">Professional Development Workshops, Strategic Consulting for Community Engagement, and Customized Training Programs.</p>
+                    </div>
+                    
+                    <div class="services-item section-card">
+                        <div class="services-icon">
+                            <i class="material-icons">account_balance</i>
+                        </div>
+                        <h3 class="services-item-title">Higher Education</h3>
+                        <p class="services-item-desc">Student support services, targeted workshops, development programs, and strategic consulting for institutions.</p>
+                    </div>
+                    
+                    <div class="services-item section-card">
+                        <div class="services-icon">
+                            <i class="material-icons">groups</i>
+                        </div>
+                        <h3 class="services-item-title">Community Organizations</h3>
+                        <p class="services-item-desc">Tailored workshops, programs, and partnerships that promote community development and resilience.</p>
+                    </div>
+                    
+                    <div class="services-item section-card">
+                        <div class="services-icon">
+                            <i class="material-icons">psychology</i>
+                        </div>
+                        <h3 class="services-item-title">Leadership Development</h3>
+                        <p class="services-item-desc">Executive coaching, leadership training, and strategic planning for educational and organizational leaders.</p>
+                    </div>
+                    
+                    <div class="services-item section-card">
+                        <div class="services-icon">
+                            <i class="material-icons">analytics</i>
+                        </div>
+                        <h3 class="services-item-title">Research & Evaluation</h3>
+                        <p class="services-item-desc">Data-driven insights, program evaluation, and research services to inform decision-making and improve outcomes.</p>
+                    </div>
+                </div>
+                
+                <div class="services-controls">
+                    <button class="services-control" id="prevBtn">
+                        <i class="material-icons">chevron_left</i>
+                    </button>
+                    <button class="services-control" id="nextBtn">
+                        <i class="material-icons">chevron_right</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Materials/Reports Section -->
+    <section class="materials section" id="materials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Materials & Reports</h2>
+                <p class="section-subtitle">Valuable resources to support your educational journey</p>
+            </div>
+            
+            <div class="bento-grid">
+                <div class="bento-item bento-item-large">
+                    <img src="https://sfile.chatglm.cn/images-ppt/31c2cfcc1ec5.png" alt="Educational Materials" class="bento-img">
+                    <div class="bento-content">
+                        <h3 class="bento-title">Educational Books</h3>
+                        <p class="bento-desc">A wide range of books for the development and education of youth, educators, professionals, and parents.</p>
+                    </div>
+                </div>
+                
+                <div class="bento-item">
+                    <img src="https://sfile.chatglm.cn/images-ppt/6eb80b14871d.jpg" alt="Guide Books" class="bento-img">
+                    <div class="bento-content">
+                        <h3 class="bento-title">Guide Books</h3>
+                        <p class="bento-desc">Practical guides for educators and parents.</p>
+                    </div>
+                </div>
+                
+                <div class="bento-item">
+                    <img src="https://sfile.chatglm.cn/images-ppt/9d86863a74bc.jpg" alt="Fiction Books" class="bento-img">
+                    <div class="bento-content">
+                        <h3 class="bento-title">Fiction Books</h3>
+                        <p class="bento-desc">Engaging stories that educate and inspire.</p>
+                    </div>
+                </div>
+                
+                <div class="bento-item bento-item-wide">
+                    <img src="https://tgaa.in/wp-content/uploads/2023/11/close-up-person-holding-smartphone-1-1280x853.jpg" alt="Annual Reports" class="bento-img">
+                    <div class="bento-content">
+                        <h3 class="bento-title">Monthly Reports</h3>
+                        <p class="bento-desc">Comprehensive analysis of educational trends and outcomes.</p>
+                    </div>
+                </div>
+                   <div class="bento-item bento-item-wide">
+                    <img src="https://sfile.chatglm.cn/images-ppt/3913623df2ad.jpg" alt="Annual Reports" class="bento-img">
+                    <div class="bento-content">
+                        <h3 class="bento-title">Annual Reports</h3>
+                        <p class="bento-desc">Comprehensive analysis of educational trends and outcomes.</p>
+                    </div>
+                </div>
+                
+                <div class="bento-item bento-item-wide">
+                    <img src="https://sfile.chatglm.cn/images-ppt/800769c8daf8.jpg" alt="Research Reports" class="bento-img">
+                    <div class="bento-content">
+                        <h3 class="bento-title">Research Reports</h3>
+                        <p class="bento-desc">In-depth studies on educational innovations and practices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion" id="reports">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="accordion-title">Current Assessment of High School Student Dual Enrollment</h3>
+                        <i class="material-icons accordion-icon">expand_more</i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="accordion-content">
+                            <p>This comprehensive report examines the current state of dual enrollment programs across the nation, analyzing participation rates, student outcomes, and institutional practices. Our findings reveal significant disparities in access and success, particularly for underrepresented student populations. The report provides actionable recommendations for improving program quality and equity.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="accordion-title">Effects of Dual Enrollment Programs on Colleges</h3>
+                        <i class="material-icons accordion-icon">expand_more</i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="accordion-content">
+                            <p>This study explores the multifaceted impact of dual enrollment programs on higher education institutions. From enrollment management and curriculum alignment to student success metrics and resource allocation, we analyze how these programs influence college operations and outcomes. The research highlights best practices for partnerships between high schools and colleges that benefit both institutions and students.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="accordion-title">Dual Enrollment Programs and Education Equality</h3>
+                        <i class="material-icons accordion-icon">expand_more</i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="accordion-content">
+                            <p>This report critically examines the role of dual enrollment programs in promoting or hindering educational equity. Through quantitative analysis and case studies, we identify systemic barriers that limit access for marginalized student populations and highlight program models that successfully bridge opportunity gaps. The findings provide a framework for designing more inclusive dual enrollment initiatives that serve all students equitably.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Section -->
+    <section class="blog section" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Insights</h2>
+                <p class="section-subtitle">Thought leadership on education, leadership, and organizational development</p>
+            </div>
+            
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <img src="https://sfile.chatglm.cn/images-ppt/c19dbea2264c.png" alt="Leadership Development" class="blog-img">
+                    <div class="blog-content">
+                        <span class="blog-date">January 15, 2026</span>
+                        <h3 class="blog-title">The Future of Educational Leadership in a Changing World</h3>
+                        <p class="blog-excerpt">Exploring how educational leaders can adapt their approaches to meet the challenges of rapidly evolving learning environments and societal expectations.</p>
+                        <a href="#" class="blog-link">Read More <i class="material-icons">arrow_forward</i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <img src="https://sfile.chatglm.cn/images-ppt/55953cd2db3b.png" alt="Professional Development" class="blog-img">
+                    <div class="blog-content">
+                        <span class="blog-date">January 10, 2026</span>
+                        <h3 class="blog-title">Building Effective Professional Development Programs</h3>
+                        <p class="blog-excerpt">Key strategies for designing and implementing professional development initiatives that create lasting impact on educator effectiveness and student outcomes.</p>
+                        <a href="#" class="blog-link">Read More <i class="material-icons">arrow_forward</i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <img src="https://sfile.chatglm.cn/images-ppt/0b64df6ce3ee.jpg" alt="Community Engagement" class="blog-img">
+                    <div class="blog-content">
+                        <span class="blog-date">January 5, 2026</span>
+                        <h3 class="blog-title">Strengthening Community-Education Partnerships</h3>
+                        <p class="blog-excerpt">How schools, businesses, and community organizations can collaborate to create more equitable and effective learning opportunities for all students.</p>
+                        <a href="#" class="blog-link">Read More <i class="material-icons">arrow_forward</i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <a href="#" class="footer-logo"><img src="/logo.png" alt="EBEC logo" class="footer-logo-img"></a>
+                    <p class="footer-desc">Earl Brown Education Consulting is dedicated to empowering educational institutions, businesses, and communities through strategic consulting and innovative development programs.</p>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#materials">Materials</a></li>
+                        <li><a href="#reports">Reports</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">School District Services</a></li>
+                        <li><a href="#">Business Solutions</a></li>
+                        <li><a href="#">Higher Education</a></li>
+                        <li><a href="#">Community Organizations</a></li>
+                        <li><a href="#">Leadership Development</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="material-icons" style="vertical-align: middle; font-size: 18px; margin-right: 5px;">email</i> letstalk@ebedc.com</li>
+                        <li><i class="material-icons" style="vertical-align: middle; font-size: 18px; margin-right: 5px;">phone</i> (555) 123-4567</li>
+                        <li><i class="material-icons" style="vertical-align: middle; font-size: 18px; margin-right: 5px;">location_on</i> New Jersey & New York</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Earl Brown Education Consulting. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.textContent = 'close';
+            } else {
+                icon.textContent = 'menu';
+            }
+        });
+        
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Typing Effect for Hero Title
+        const typingText = document.querySelector('.typing-text');
+        const text = typingText.textContent;
+        typingText.textContent = '';
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                typingText.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        
+        setTimeout(typeWriter, 500);
+        
+        // Services Slider
+        const servicesContainer = document.querySelector('.services-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.services-item');
+        const totalSlides = slides.length;
+        
+        function updateSlider() {
+            const slideWidth = slides[0].offsetWidth;
+            servicesContainer.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            if (window.innerWidth > 992) {
+                slideIndex = (slideIndex + 3) % totalSlides;
+            } else if (window.innerWidth > 768) {
+                slideIndex = (slideIndex + 2) % totalSlides;
+            } else {
+                slideIndex = (slideIndex + 1) % totalSlides;
+            }
+            updateSlider();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            if (window.innerWidth > 992) {
+                slideIndex = (slideIndex - 3 + totalSlides) % totalSlides;
+            } else if (window.innerWidth > 768) {
+                slideIndex = (slideIndex - 2 + totalSlides) % totalSlides;
+            } else {
+                slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+            }
+            updateSlider();
+        });
+        
+        // Accordion
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            
+            header.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                accordionItems.forEach(acc => {
+                    acc.classList.remove('active');
+                });
+                
+                // Open clicked item if it was not active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        const revealElements = document.querySelectorAll('.services-item, .bento-item, .blog-card');
+        
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                navMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.textContent = 'menu';
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Handle Window Resize for Slider
+        window.addEventListener('resize', () => {
+            slideIndex = 0;
+            updateSlider();
+        });
+
+        // Hero Play Button (opens video link in new tab). Update `data-video` if you have a hosted video.
+        const heroPlay = document.getElementById('heroPlay');
+        if (heroPlay) {
+            heroPlay.addEventListener('click', () => {
+                // If you want a lightbox/modal, we can implement it. For now open a video URL in a new tab.
+                const videoUrl = heroPlay.getAttribute('data-video') || 'https://www.youtube.com/';
+                window.open(videoUrl, '_blank');
+            });
+        }
+    </script>
+</body>
+</html>
